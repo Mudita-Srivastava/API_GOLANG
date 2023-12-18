@@ -18,6 +18,47 @@ The system boasts a suite of endpoints that mimic the activities within the gara
 - **Update Car Details**: Allows for modifications to existing car records, such as changing ownership, updating service history, or marking its status.
 - **Delete Car Record**: Removes a car from the system when it's sold, retired, or no longer part of the collection.
 
+## Installation
+
+1. Clone this repository:
+
+    bash
+    git clone https://github.com/your-username/golang-api-project.git
+    
+
+2. Navigate to the project directory:
+
+    bash
+    cd golang-api-project
+    
+
+3. Install dependencies:
+
+    bash
+    go mod tidy
+    
+
+## Usage
+
+- Run the application:
+
+    bash
+    go run main.go
+    
+
+- Run tests:
+
+    bash
+    go test
+
+### Database Schema-
+	carsId       string 
+	make         string 
+	model        string 
+	licenceplate string 
+	ownername    string 
+	date         string 
+	status       string 
 
 
 ---

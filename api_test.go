@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -222,42 +223,33 @@ func TestPutCar_SuccessfulUpdate(t *testing.T) {
 
 	jsonPayload, _ := json.Marshal(payload)
 
-	// Replace '1' with an existing car ID
 	carID := "1"
 
-	// Create a request for updating an existing car by ID
-	req, err := http.NewRequest("PUT", "/car/"+carID, bytes.NewBuffer(jsonPayload))
+	url := fmt.Sprintf("/car?id=%s", carID)
+	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonPayload))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	// Mocking the handler function for updating a car by ID
 	rr := httptest.NewRecorder()
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Retrieve car ID from the request and perform necessary update actions
 		requestedCarID := r.URL.Query().Get("id")
 
-		// Simulate an existing car record for the provided car ID
 		if requestedCarID == carID {
-			// Assuming updating car data in the database or another source based on the 'carID' and provided payload
-			// ...
 
 			w.WriteHeader(http.StatusOK)
 			w.Write([]byte("Car updated successfully"))
 			return
 		}
 
-		// Simulate a case where the car ID doesn't match an existing record
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte("Car not found"))
 	})
 
 	handler.ServeHTTP(rr, req)
 
-	// Check the response status code for a successful update
 	assert.Equal(t, http.StatusOK, rr.Code, "Status code should be 200 OK")
 
-	// Check the response body for the success message
 	expectedResponse := "Car updated successfully"
 	assert.Contains(t, rr.Body.String(), expectedResponse, "Response should indicate successful update")
 }
@@ -276,8 +268,8 @@ func TestPutCar_NotFound(t *testing.T) {
 	jsonPayload, _ := json.Marshal(payload)
 
 	carID := "99"
-
-	req, err := http.NewRequest("PUT", "/car/"+carID, bytes.NewBuffer(jsonPayload))
+	url := fmt.Sprintf("/car?id=%s", carID)
+	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonPayload))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -287,7 +279,7 @@ func TestPutCar_NotFound(t *testing.T) {
 
 		requestedCarID := r.URL.Query().Get("id")
 
-		if requestedCarID != carID {
+		if requestedCarID != "98" {
 			w.WriteHeader(http.StatusNotFound)
 			w.Write([]byte("Car not found"))
 			return
