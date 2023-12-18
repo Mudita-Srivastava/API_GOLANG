@@ -23,7 +23,7 @@ The system boasts a suite of endpoints that mimic the activities within the gara
 1. Clone this repository:
 
     bash
-    git clone https://github.com/your-username/golang-api-project.git
+    git clone https://github.com/your-username/API_GOLANG.git
     
 
 2. Navigate to the project directory:
