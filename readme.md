@@ -29,7 +29,7 @@ The system boasts a suite of endpoints that mimic the activities within the gara
 2. Navigate to the project directory:
 
     bash
-    cd golang-api-project
+    cd API_GOLANG
     
 
 3. Install dependencies:
